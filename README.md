@@ -1,3 +1,18 @@
+## Nossas tarefas
+- Criar o html incluindo o input e 3 cards(imagem/paragrafo)
+
+- Criar o css e deixar minimamente parecido com o protótipo
+
+- Consumir a API, mostrar dados no console e em seguida mapear dados na tela
+
+- Fazer a captura do input mostrando no console e em seguida fazer o filtro funcionar atualizando na tela conforme buscado
+
+- Incluir configuração do Netlify
+
+- Subir no github
+
+- Subir no Netlify
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
