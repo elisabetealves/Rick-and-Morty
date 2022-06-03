@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react'
-import './styles.css'
+import axios from 'axios'
+import { Container, Cards, Card } from './styled'
 
 function App() {
-  const [ personagens, setPersonagem ] = useState([])
-  const [ busca, setBusca ] = useState('')
-  const [ filtro, setFiltro ] = useState([])
+  const [personagens, setPersonagem] = useState([])
+  const [busca, setBusca] = useState('')
+  const [filtro, setFiltro] = useState([])
 
   useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character')
-      .then(response =>response.json())
-      .then(data => setPersonagem(data.results))
-  },[])
+    axios.get('https://rickandmortyapi.com/api/character')
+      .then((response) => {
+        setPersonagem(response.data.results)
+      })
+      .catch((error) => {
+        console.log(error.data)
+      })
+  }, [])
 
   useEffect(() => {
     setFiltro(
@@ -18,24 +23,28 @@ function App() {
         return personagem.name.includes(busca)
       })
     )
-  },[ busca, personagens ])
+  }, [busca, personagens])
+
+  const buscarNome = (event) => {
+    setBusca(event.target.value)
+  }
 
   return (
-    <div className="container">
-      <input 
+    <Container>
+      <input
         placeholder="Digite o nome do personagem"
-        onChange={e => {setBusca(e.target.value)}}
+        onChange={buscarNome}
       />
-      <div className="cards">
+      <Cards>
         {filtro.map(personagem => (
-          <div className="card" key={personagem.id}>
+          <Card key={personagem.id}>
             <p>{personagem.name}</p>
-            <img src={personagem.image} alt={personagem.name}/>
-          </div>
+            <img src={personagem.image} alt={personagem.name} />
+          </Card>
         ))}
-       
-      </div>
-    </div>
+
+      </Cards>
+    </Container>
   );
 }
 
